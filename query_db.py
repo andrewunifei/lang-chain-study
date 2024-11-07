@@ -1,4 +1,8 @@
 from embeddings import query_document
 
-result = query_document('Qual é o objetivo comportamental?',1, 2)
-print(result)
+results = query_document('only retrieve with the word "double-top" in it',3, 0)
+for result in results:
+    print('------')
+    print('')
+    print(result)
+    print('')

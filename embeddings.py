@@ -1,12 +1,13 @@
 from langchain_ollama import OllamaEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
+import chromadb
 
 models = {
     0: 'mxbai-embed-large',
     1: 'llama3.2',
     2: 'llama3.1',
-    3 'stablelm2'
+    3: 'stablelm2'
 }
 
 def model_available():
@@ -41,3 +42,9 @@ def query_document(query, k=1, model_key='0'):
     vector_store = get_vector_store(model_key)
     result = vector_store.similarity_search_by_vector(embedding=query_vector, k=k)
     return result
+
+def count_documents():
+    client = chromadb.PersistentClient(path="./chroma.db")
+    collection_name = "trading_reports"
+    collection = client.get_or_create_collection(collection_name)
+    print(collection.count())
