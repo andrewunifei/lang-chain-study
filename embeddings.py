@@ -1,4 +1,4 @@
-from langchain_ollama.llms import OllamaLLM
+from langchain_ollama import OllamaEmbeddings
 
 models = {
     '0': 'mxbai-embed-large',
@@ -8,11 +8,7 @@ models = {
 def model_available():
     return models
 
-def embed(model_key):
-    model = OllamaLLM(model=models[model_key], temperature=0)
-    names = model.invoke('I have a dog pet and I want a cool name for it.\
-        Suggest me five cool names for my pet. They are black in color.\
-         Just list the names, no additional information')
-
-    return names
-
+def embed_text(text, model_key='0'):
+    embeddings_model = OllamaEmbeddings(model=models[model_key])
+    embeddings = embeddings_model.embed_documents(text)
+    return embeddings
