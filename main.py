@@ -1,12 +1,12 @@
-from langchain_ollama.llms import OllamaLLM
+import os
+from dotenv import load_dotenv
+from handle_files_paths import get_files_paths
 
-def generate_names():
-    model = OllamaLLM(model='llama3.2', temperature=0)
-    names = model.invoke('I have a dog pet and I want a cool name for it.\
-        Suggest me five cool names for my pet. They are black in color.\
-         Just list the names, no additional information')
+load_dotenv()
 
-    return names
-
-if __name__ == '__main__':
-    print(generate_names())
+august_2024_key = 'AUGUST_2024'
+september_2024_key = 'SEPTEMBER_2024'
+august_2024_files_path = os.getenv(august_2024_key)
+september_2024_files_path = os.getenv(september_2024_key )
+files_paths = get_files_paths([august_2024_files_path, september_2024_files_path])
+print(len(files_paths))
