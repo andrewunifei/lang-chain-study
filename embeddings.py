@@ -3,8 +3,10 @@ from langchain_chroma import Chroma
 from langchain_core.documents import Document
 
 models = {
-    '0': 'mxbai-embed-large',
-    '1': 'llama3.2'
+    0: 'mxbai-embed-large',
+    1: 'llama3.2',
+    2: 'llama3.1',
+    3 'stablelm2'
 }
 
 def model_available():
@@ -28,14 +30,14 @@ def embed_text(text, model_key='0'):
     embeddings = embeddings_model.embed_documents(text)
     return embeddings
 
-def store_embeddings(vectors,  model_key='0'):
-    documents = [Document(page_content='daily_report_cards')]
+def store_embeddings(page_content, embeddings, model_key='0'):
+    documents = [Document(page_content=page_content, metadate={"source": "personal_report"})]
     vector_store = get_vector_store(model_key)
-    vector_store.add_documents(documents=documents, embeddings=vectors)
+    vector_store.add_documents(documents=documents, embeddings=embeddings)
 
-def query_document(query, model_key='0'):
+def query_document(query, k=1, model_key='0'):
     embeddings_model = get_embeddings_model(model_key)
-    vector_store = get_vector_store(model_key)
     query_vector = embeddings_model.embed_documents([query])[0]
-    result = vector_store.similarity_search(query_vector=query_vector, k=2)
+    vector_store = get_vector_store(model_key)
+    result = vector_store.similarity_search_by_vector(embedding=query_vector, k=k)
     return result
