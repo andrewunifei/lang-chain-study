@@ -2,11 +2,11 @@ import os
 from dotenv import load_dotenv
 from handle_files_paths import get_files_paths
 from extract_text import extract_text_from_pdf
-from embeddings import embed_text, store_embeddings, query_document
+from embeddings import embed_text, store_embeddings
 
 load_dotenv()
 
-model_key = 0
+model_key = 2
 august_2024_key = 'AUGUST_2024'
 september_2024_key = 'SEPTEMBER_2024'
 

@@ -3,18 +3,18 @@ from langchain_chroma import Chroma
 from langchain_core.documents import Document
 import chromadb
 
-models = {
+__models = {
     0: 'mxbai-embed-large',
     1: 'llama3.2',
     2: 'llama3.1',
     3: 'stablelm2'
 }
 
-def model_available():
-    return models
+def models_available():
+    return __models
 
 def get_embeddings_model(model_key):
-    embeddings_model = OllamaEmbeddings(model=models[model_key])
+    embeddings_model = OllamaEmbeddings(model=__models[model_key])
     return embeddings_model
 
 def get_vector_store(model_key='0'):
